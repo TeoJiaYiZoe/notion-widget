@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Anime Quote Widget</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .widget-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .quote {
+            font-size: 18px;
+            font-style: italic;
+            margin: 20px 0;
+            color: #555;
+        }
+        .anime {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e75b4f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="widget-container">
+    <div id="random-quote" class="quote">Click the button below to get a random anime quote!</div>
+    <div id="anime" class="anime"></div>
+    <button id="generate-quote-btn">Generate Random Quote</button>
+</div>
+
+<script>
+    const baseUrl = 'hhttps://0k18915803.execute-api.ap-southeast-1.amazonaws.com';  // Replace with your actual API endpoint
+
+    async function getRandomQuote() {
+        try {
+            const response = await fetch(`${baseUrl}/random-quote`);
+            const data = await response.json();
+            const randomQuote = data.quote || "No quote available";
+            const anime = data.anime || "No anime available";
+
+            // Display both the quote and the anime
+            document.getElementById("random-quote").innerHTML = `"${randomQuote}"`;
+            document.getElementById("anime").innerText = `- Anime: ${anime}`;
+        } catch (error) {
+            console.error('Error fetching random quote:', error);
+            document.getElementById("random-quote").innerText = "Error fetching quote";
+            document.getElementById("anime").innerText = "";
+        }
+    }
+
+    // Add event listener to button
+    document.getElementById("generate-quote-btn").addEventListener("click", getRandomQuote);
+</script>
+
+</body>
+</html>

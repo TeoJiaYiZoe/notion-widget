@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+
+    <title>Monthly Countdown</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: monospace;
+            background-color: #fff;
+        }
+        .box {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 40px;
+            height: 40px;
+            border: 3px solid #000000;
+            box-shadow: 2px 2px 1px 0px #000000;
+        }
+        h2, h3 {
+            margin: 10px;
+        }
+        .small {
+            font-size: 15px;
+            font-weight: lighter;
+        }
+        #month-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .counter-row {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="counter">
+        <div id="month-name"></div>
+        <div class="counter-row">
+            <h2 class="box" id="weeks"></h2>
+            <h2 class="box" id="days"></h2>
+            <h2 class="box" id="hours"></h2>
+            <h2 class="box" id="minutes"></h2>
+        </div>
+    </div>
+
+    <script>
+        function CountDownTimer() {
+            // Get element references
+            this.monthName = document.getElementById("month-name");
+            this.leftWeeks = document.getElementById("weeks");
+            this.leftDays = document.getElementById("days");
+            this.leftHours = document.getElementById("hours");
+            this.leftMinutes = document.getElementById("minutes");
+
+            // Start countdown
+            this.start = () => {
+                setInterval(this.updateCountdown, 1000);
+            };
+
+            // Update the countdown
+            this.updateCountdown = () => {
+                const now = new Date();
+                const currentYear = now.getFullYear();
+                const currentMonth = now.getMonth();
+                const daysInThisMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+                const endOfMonth = new Date(currentYear, currentMonth + 1, 0, 23, 59, 59);
+                const remainingTime = endOfMonth - now;
+
+                const weeks = Math.floor(Math.floor(remainingTime / (1000 * 60 * 60 * 24)) / 7);
+                const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))-(weeks * 7);
+                const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+
+                const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString("default", { month: "long" });
+
+                this.monthName.innerHTML = `Countdown to ${nextMonth} ${currentYear}`;
+                this.leftWeeks.innerHTML = `${weeks} <br><span class="small">weeks</span>`;
+                this.leftDays.innerHTML = `${days} <br><span class="small">days</span>`;
+                this.leftHours.innerHTML = `${hours} <br><span class="small">hours</span>`;
+                this.leftMinutes.innerHTML = `${minutes} <br><span class="small">mins</span>`;
+            };
+        }
+
+        const timer = new CountDownTimer();
+        timer.start();
+    </script>
+</body>
+</html>
