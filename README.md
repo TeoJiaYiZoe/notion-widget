@@ -30,4 +30,10 @@ You can customize the widget content and appearance by editing the HTML, CSS, an
 - Change the anime quote list for the Anime Quote Widget.
 - Modify the style of the widgets with your own custom CSS.
 
+## Notion Template
+
+Check out my **2025 Monthly Goals Tracker** on Notion:  [2025 Monthly Goals Tracker](https://easy-chamomile-99a.notion.site/2025-Monthly-Goals-Tracker-17f6a3cae7ac808bba4af4aa1f80eccd)  
+
+Use this template to stay organized and track your goals effectively throughout the month!
+
 
